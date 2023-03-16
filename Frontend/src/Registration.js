@@ -7,6 +7,27 @@ const Registration = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  sendCred = () => {
+    console.log(name)
+    fetch("http://192.168.41.129:8000/users/register", {
+      method: "POST",
+      headers: {
+        Accept: 'application/json',
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        phone: phone,
+        email: email,
+        password: password,
+      }),
+    }).then((response) => response.json()).then((json)=> console.log(json));
+  setName('');
+  setNumber('');
+  setEmail('');
+  setPassword('');
+  };
+
   return (
     <View
       style={{
@@ -72,8 +93,8 @@ const Registration = ({ navigation }) => {
       </View>
 
       <View style={styles.btn2}>
-        <Button
-             onPress={() => navigation.navigate("Login")}
+      <Button
+          onPress={() => sendCred()}
           title="Register"
           color="#0040ff"
         ></Button>

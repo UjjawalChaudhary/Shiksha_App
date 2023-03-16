@@ -5,6 +5,29 @@ import { View, Text, Button, StyleSheet, TextInput } from "react-native";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const sendCred = () => {
+    fetch('http://192.168.41.129:8000/users/login', {
+      method: 'POST',
+      headers: {
+          Accept: "application/json",
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+          email: email,
+         password: password,
+      }),
+    })
+      .then((response) => {response.json()
+      if (response.status === 200){
+        navigation.navigate('Entry');
+  
+      }
+      } )
+      .then((data) => {
+   
+      });
+  };
+  
   return (
     <View
       style={{
@@ -42,9 +65,8 @@ import { View, Text, Button, StyleSheet, TextInput } from "react-native";
       />
 
       <View style={styles.btn}>
-        <Button 
-        title="Login" 
-        color="green"></Button>
+     <Button onPress={() => sendCred()} title="Login" color="green"></Button>
+
       </View>
     </View>
     
